@@ -1,0 +1,88 @@
+<!-- media-cleaner.component.html -->
+<div class="ios-bg">
+  <div class="ios-container">
+    <header>
+      <p class="ios-date">{{ today | date:'EEEE, d MMMM' | uppercase }}</p>
+      <h1>Media Privacy</h1>
+    </header>
+
+    <div class="ios-card uploader">
+      <label for="file-upload" class="upload-label">
+        <div class="icon-circle">＋</div>
+        <span>Seleccionar Foto o Video</span>
+        <p class="subtitle">HEIC, JPG, PNG, WebP, MOV, MP4</p>
+      </label>
+      <input id="file-upload" type="file" (change)="onFileSelected($event)" hidden 
+             accept="image/*,video/*,.heic">
+    </div>
+
+    @if (error) {
+      <div class="ios-card error-card">
+        <p>⚠️ {{ error }}</p>
+      </div>
+    }
+
+    @if (isProcessing) {
+      <div class="ios-card loading-card">
+        <div class="spinner"></div>
+        <p>Procesando y borrando rastros...</p>
+        <p class="subtitle">Esto puede tomar unos segundos</p>
+      </div>
+    }
+
+    @if (resultUrl && !isProcessing) {
+      <div class="ios-card preview-card" @fadeIn>
+        <div class="preview-container">
+          @if (fileType === 'image') {
+            <img [src]="resultUrl" alt="Preview">
+          } @else {
+            <video [src]="resultUrl" controls></video>
+          }
+        </div>
+        <button class="ios-btn-primary" (click)="download()">
+          Guardar en Dispositivo
+        </button>
+      </div>
+    }
+  </div>
+</div>
+
+<!-- <div class="ios-bg">
+  <div class="ios-container">
+    <header>
+      <p class="ios-date">{{ today | date:'EEEE, d MMMM' | uppercase }}</p>
+      <h1>Media Privacy</h1>
+    </header>
+
+    <div class="ios-card uploader">
+      <label for="file-upload" class="upload-label">
+        <div class="icon-circle">＋</div>
+        <span>Seleccionar Foto o Video</span>
+        <p class="subtitle">HEIC, JPG, MOV, MP4 compatibles</p>
+      </label>
+      <input id="file-upload" type="file" (change)="onFileSelected($event)" hidden accept="image/*,video/*">
+    </div>
+
+    @if (isProcessing) {
+      <div class="ios-card loading-card">
+        <div class="spinner"></div>
+        <p>Procesando y borrando rastros...</p>
+      </div>
+    }
+
+    @if (resultUrl && !isProcessing) {
+        <div class="ios-card preview-card">
+        <div class="preview-container">
+          @if (fileType === 'image') {
+            <img [src]="resultUrl" alt="Preview">
+          } @else {
+            <video [src]="resultUrl" controls></video>
+          }
+        </div>
+        <button class="ios-btn-primary" (click)="download()">
+          Guardar en Dispositivo
+        </button>
+      </div>
+    }
+  </div>
+</div> -->
